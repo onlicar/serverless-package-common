@@ -1,0 +1,14 @@
+{
+  "name": "serverless-package-lib",
+  "version": "1.0.0",
+  "description": "📦 Deploy Python Lambda functions with custom dependencies stored in a lib folder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dan Bovey <dan@onlicar.com>",
+  "license": "MIT",
+  "dependencies": {
+    "rimraf": "^2.6.2"
+  }
+}
