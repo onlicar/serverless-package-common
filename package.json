@@ -9,6 +9,7 @@
   "author": "Dan Bovey <dan@onlicar.com>",
   "license": "MIT",
   "dependencies": {
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "yesno": "0.0.1"
   }
 }

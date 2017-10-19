@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const rimraf = require('rimraf');
+const yesno = require('yesno');
 
 class PackageLib {
   constructor(serverless, options) {
@@ -10,6 +11,7 @@ class PackageLib {
     this.options = {
       libFolder: options.libFolder || './lib'
     };
+    this.ran = false;
 
     this.hooks = {
       'before:package:createDeploymentArtifacts': this.symlinkPackages.bind(this),
@@ -18,20 +20,45 @@ class PackageLib {
   }
 
   symlinkPackages() {
-    this.serverless.cli.log(`[serverless-lib-package] Symlinking packages`);
     const libs = fs.readdirSync(this.options.libFolder);
-    libs.forEach(pkg => {
-      fs.symlinkSync(`${this.options.libFolder}/${pkg}`, path.join(process.cwd(), pkg));
+    
+    // Check if folder already exists in top level
+    let targetExists = [];
+    libs.map(pkg => {
+      if(fs.existsSync(path.join(process.cwd(), pkg))) {
+        targetExists.push(pkg);
+      }
     });
 
-    process.on('SIGTERM', () => this.removePackages());
+    let askToOverwrite = Promise.resolve();
+    if(targetExists.length > 0) {
+      askToOverwrite = new Promise((resolve, reject) => {
+        yesno.ask(`${pkg.join(', ')} from ${this.options.libFolder} already exist${pkg.length == 1 ? 's' : ''} in the service folder, do you want to overwrite files?`, false, ok =>
+          ok ? resolve() : reject()
+        );
+      });
+    }
+
+    return askToOverwrite.then(() => {
+      // There is either no conflicts or the user has accepted overwriting
+      this.serverless.cli.log(`[serverless-lib-package] Symlinking packages`);
+      process.on('SIGTERM', () => this.removePackages());
+      libs.map(pkg => {
+        const target = path.join(process.cwd(), pkg);
+        rimraf.sync(target);
+        fs.symlinkSync(`${this.options.libFolder}/${pkg}`, target);
+      });
+      this.ran = true;
+    });
   }
 
   removePackages() {
-    const libs = fs.readdirSync(this.options.libFolder);
-    libs.forEach(pkg => {
-      rimraf.sync(path.join(process.cwd(), pkg));
-    });
+    if(this.ran) {
+      const libs = fs.readdirSync(this.options.libFolder);
+      libs.forEach(pkg => {
+        rimraf.sync(path.join(process.cwd(), pkg));
+      });
+    }
   }
 }
 
