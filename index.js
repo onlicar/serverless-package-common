@@ -33,7 +33,11 @@ class PackageLib {
     let askToOverwrite = Promise.resolve();
     if(targetExists.length > 0) {
       askToOverwrite = new Promise((resolve, reject) => {
-        yesno.ask(`${pkg.join(', ')} from ${this.options.libFolder} already exist${pkg.length == 1 ? 's' : ''} in the service folder, do you want to overwrite files?`, false, ok =>
+        let targets = 'Folders';
+        if(targetExists < 5) {
+          targets = targetExists.join(', ');
+        }
+        yesno.ask(`${targets} from ${this.options.libFolder} already exist${targetExists.length == 1 ? 's' : ''} in the service folder, do you want to overwrite files?`, false, ok =>
           ok ? resolve() : reject()
         );
       });
