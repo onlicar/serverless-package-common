@@ -28,7 +28,7 @@ class PackageLib {
   }
 
   removePackages() {
-    const libs = fs.readdirSync('${this.options.libFolder}');
+    const libs = fs.readdirSync(this.options.libFolder);
     libs.forEach(pkg => {
       rimraf.sync(path.join(process.cwd(), pkg));
     });
