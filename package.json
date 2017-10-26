@@ -1,6 +1,6 @@
 {
   "name": "serverless-package-lib",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "📦 Deploy Python Lambda functions with custom dependencies stored in a lib folder",
   "main": "index.js",
   "scripts": {
