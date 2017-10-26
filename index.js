@@ -8,9 +8,9 @@ const yesno = require('yesno');
 class PackageLib {
   constructor(serverless, options) {
     this.serverless = serverless;
-    this.options = {
-      libFolder: options.libFolder || './lib'
-    };
+    this.options = Object.assign({
+      libFolder: './lib'
+    }, this.serverless.service.custom && this.serverless.service.custom.packageLib || {});
     this.ran = false;
 
     this.hooks = {
@@ -22,12 +22,15 @@ class PackageLib {
   symlinkPackages() {
     const libs = fs.readdirSync(this.options.libFolder);
     
-    // Check if folder already exists in top level
+    // Check if folder/file with symlink name already exists in top level
     let targetExists = [];
     libs.map(pkg => {
-      if(fs.existsSync(path.join(process.cwd(), pkg))) {
-        targetExists.push(pkg);
-      }
+      try {
+        const stats = fs.lstatSync(path.join(process.cwd(), pkg));
+        if(!stats.isSymbolicLink()) {
+          targetExists.push(pkg);
+        }
+      } catch(e) {}
     });
 
     let askToOverwrite = Promise.resolve();
