@@ -23,7 +23,6 @@ class PackageCommon {
     // Symlink common folders
     return Promise.all(this.options.common.map(commonFolder => {
         this.symlinked = true;
-        this.serverless.cli.log(`[serverless-package-common] Symlinking ${commonFolder}`);
         return symlink.createFolder(commonFolder, this.serverless);
       }))
       .then(() => {
