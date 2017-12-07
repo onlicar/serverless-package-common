@@ -37,14 +37,11 @@ const askToOverwrite = (targetExists, folder) => {
 const createFolder = (folder, serverless) => {
   const target = path.join(process.cwd(), folder.replace(/..\//g, ''));
 
-  console.log(folder);
-  console.log(target);
-
   // Check if folder/file with symlink name already exists in top level
   return askToOverwrite(exists(target) ? [target] : [], folder)
     .then(() => {
       // There is either no conflict or the user has accepted overwriting
-      serverless.cli.log(`[serverless-lib-package] Symlinking ${folder}`);
+      serverless.cli.log(`[serverless-package-common] Symlinking ${folder}`);
       rimraf.sync(target);
       fs.symlinkSync(folder, target);
     });
