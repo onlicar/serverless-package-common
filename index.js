@@ -2,12 +2,12 @@
 
 const symlink = require('./src/symlink');
 
-class PackageLib {
+class PackageCommon {
   constructor(serverless, options) {
     this.serverless = serverless;
     this.options = Object.assign({
       common: []
-    }, this.serverless.service.custom && this.serverless.service.custom.packageLib || {});
+    }, this.serverless.service.custom && this.serverless.service.custom.packageCommon || {});
 
     this.symlinked = false;
 
@@ -47,4 +47,4 @@ class PackageLib {
   }
 }
 
-module.exports = PackageLib;
+module.exports = PackageCommon;
