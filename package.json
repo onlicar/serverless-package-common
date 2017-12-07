@@ -1,13 +1,21 @@
 {
-  "name": "serverless-package-lib",
+  "name": "serverless-package-common",
   "version": "1.1.0",
-  "description": "📦 Deploy Python Lambda functions with custom dependencies stored in a lib folder",
+  "description": "📦 Deploy microservice Python Serverless services with common code",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onlicar/serverless-package-common.git"
+  },
   "author": "Dan Bovey <dan@onlicar.com>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/onlicar/serverless-package-common/issues"
+  },
+  "homepage": "https://github.com/onlicar/serverless-package-common#readme",
   "dependencies": {
     "rimraf": "^2.6.2",
     "yesno": "0.0.1"

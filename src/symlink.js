@@ -33,27 +33,6 @@ const askToOverwrite = (targetExists, folder) => {
   return ask;
 };
 
-// Symlink the contents of a folder
-const create = (folder, serverless) => {
-  const libs = fs.readdirSync(folder);
-
-  const target = folder.replace(/..\//g, '');
-  
-  // Check if folder/file with symlink name already exists in top level
-  return askToOverwrite(libs.filter(pkg =>
-      exists(path.join(process.cwd(), pkg))
-    ), folder)
-    .then(() => {
-      // There is either no conflicts or the user has accepted overwriting
-      serverless.cli.log(`[serverless-lib-package] Symlinking contents of ${folder}`);
-      libs.map(pkg => {
-        const target = path.join(process.cwd(), pkg.replace(/..\//g, ''));
-        rimraf.sync(target);
-        fs.symlinkSync(`${folder}/${pkg}`, target);
-      });
-    });
-};
-
 // Symlink a folder
 const createFolder = (folder, serverless) => {
   const target = path.join(process.cwd(), folder.replace(/..\//g, ''));
@@ -71,15 +50,8 @@ const createFolder = (folder, serverless) => {
     });
 };
 
-const remove = folder => {
-  const libs = fs.readdirSync(folder);
-  libs.forEach(pkg => {
-    rimraf.sync(path.join(process.cwd(), pkg));
-  });
-};
-
 const removeFolder = folder => {
   rimraf.sync(path.join(process.cwd(), folder));
 };
 
-module.exports = { create, createFolder, remove, removeFolder };
+module.exports = { createFolder, removeFolder };
