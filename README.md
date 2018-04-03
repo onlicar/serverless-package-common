@@ -2,7 +2,7 @@
 
 > 📦 Deploy microservice Python Serverless services with common code
 
-Before deploying, this plugin symlinks folders containing shared code into your the root directory of your Serverless microservice.
+Before deploying, this plugin symlinks folders containing shared code into the root directory of your Serverless microservice.
 
 ### Installation
 
