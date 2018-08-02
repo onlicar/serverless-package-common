@@ -35,7 +35,7 @@ const askToOverwrite = (targetExists, folder) => {
 
 // Symlink a folder
 const createFolder = (folder, serverless) => {
-  const target = path.join(process.cwd(), folder.replace(/..\//g, ''));
+  const target = path.join(process.cwd(), path.basename(folder));
 
   // Check if folder/file with symlink name already exists in top level
   return askToOverwrite(exists(target) ? [target] : [], folder)
