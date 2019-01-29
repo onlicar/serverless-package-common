@@ -3,6 +3,7 @@ const path = require('path');
 const rimraf = require('rimraf');
 const yesno = require('yesno');
 const ncp = require('ncp').ncp;
+const fse = require('fs-extra')
 
 const exists = path => {
   try {
@@ -59,17 +60,19 @@ const copyFolder = (serverless) => {
   }) */
   .map(f => {
     serverless.cli.log(
-      `Zipping required Python packages for ${f.module}...`
+      `Copying common modules for ${f.module}...`
     );
     const folderToCopy = path.join(serverless.config.servicePath, 'src');
     const destination = path.join(serverless.config.servicePath, f.module);
-    return ncp(folderToCopy, destination, function (err) {
-      if (err) {
-        serverless.cli.log(`[serverless-package-common] Error Copying. ${err}`);
-        return console.error(err);
-      }
+    try {
+      serverless.cli.log(`Copying from ${folderToCopy} to ${destination}`);
+      fse.copySync(folderToCopy, destination)
       serverless.cli.log(`[serverless-package-common] Copy finished`);
-     });
+      return true;
+    } catch (err) {
+      serverless.cli.log(`[serverless-package-common] Error Copying. ${err}`);
+      return false;
+    }
   });
 };
 

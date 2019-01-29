@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/onlicar/serverless-package-common#readme",
   "dependencies": {
-    "ncp": "^2.0.0",
+    "fs-extra": "^7.0.1",
     "rimraf": "^2.6.2",
     "yesno": "0.0.1"
   }
