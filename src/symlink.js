@@ -59,7 +59,7 @@ const copyFolder = (serverless) => {
     }
     serverless.cli.log(`[serverless-package-common] Copy finished`);
    });
-}
+};
 
 const removeFolder = folder => {
   const folderToRemove = path.join(process.cwd(), folder);

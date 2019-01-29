@@ -12,9 +12,9 @@ class PackageCommon {
     this.symlinked = false;
 
     this.hooks = {
-      //'before:package:createDeploymentArtifacts': this.beforeDeploy.bind(this),
-      'before:deploy:function:packageFunction': this.copyCommon.bind(this)
-      //'after:deploy:deploy': this.afterDeploy.bind(this)
+      'before:package:createDeploymentArtifacts': this.beforeDeploy.bind(this),
+      'before:deploy:function:packageFunction': this.copyCommon.bind(this),
+      'after:deploy:deploy': this.afterDeploy.bind(this)
     };
 
     this.handleExit();
