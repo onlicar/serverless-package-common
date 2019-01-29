@@ -50,7 +50,7 @@ const createFolder = (folder, serverless) => {
 
 const copyFolder = (serverless) => {
 
-  return Promise.resolve(this.targetFuncs)
+  return this.targetFuncs
   .map(f => {
     if (!get(f, 'module')) {
       set(f, ['module'], '.');
