@@ -58,13 +58,6 @@ class PackageCommon {
         this.afterDeploy();
       }));
   }
-
-  get targetFuncs() {
-    let inputOpt = this.serverless.processedInput.options;
-    return inputOpt.function
-      ? [inputOpt.functionObj]
-      : values(this.serverless.service.functions);
-  }
 }
 
 module.exports = PackageCommon;

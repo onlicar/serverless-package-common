@@ -50,7 +50,7 @@ const createFolder = (folder, serverless) => {
 
 const copyFolder = (serverless) => {
 
-  return this.targetFuncs()
+  return targetFuncs()
   .map(f => {
     if (!get(f, 'module')) {
       set(f, ['module'], '.');
@@ -77,6 +77,13 @@ const removeFolder = folder => {
   const folderToRemove = path.join(process.cwd(), folder);
   serverless.cli.log(`[serverless-package-common] Un-Symlinking folder ${folderToRemove}`);
   rimraf.sync(folderToRemove);
+};
+
+const targetFuncs = () => {
+  let inputOpt = this.serverless.processedInput.options;
+  return inputOpt.function
+    ? [inputOpt.functionObj]
+    : values(this.serverless.service.functions);
 };
 
 module.exports = { createFolder, removeFolder, copyFolder };
