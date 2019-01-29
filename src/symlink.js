@@ -41,14 +41,15 @@ const createFolder = (folder, serverless) => {
   return askToOverwrite(exists(target) ? [target] : [], folder)
     .then(() => {
       // There is either no conflict or the user has accepted overwriting
-      serverless.cli.log(`[serverless-package-common] Symlinking custom app ${folder}`);
+      serverless.cli.log(`[serverless-package-common] Symlinking folder ${target}`);
       rimraf.sync(target);
       fs.symlinkSync(folder, target);
     });
 };
 
 const removeFolder = folder => {
-  rimraf.sync(path.join(process.cwd(), folder));
+  const folderToRemove = path.join(process.cwd(), folder)
+  rimraf.sync(folderToRemove);
 };
 
 module.exports = { createFolder, removeFolder };
