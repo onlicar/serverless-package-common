@@ -51,12 +51,12 @@ const createFolder = (folder, serverless) => {
 const copyFolder = (serverless) => {
 
   return targetFuncs(serverless)
-  .map(f => {
+/*   .map(f => {
     if (!get(f, 'module')) {
       set(f, ['module'], '.');
     }
     return f;
-  })
+  }) */
   .map(f => {
     this.serverless.cli.log(
       `Zipping required Python packages for ${f.module}...`
