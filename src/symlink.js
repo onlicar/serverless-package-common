@@ -52,7 +52,7 @@ const copyFolder = (serverless) => {
   const folderToCopy = path.join(process.cwd(), 'src');
   const destination = serverless.config.servicePath;
   serverless.cli.log(`[serverless-package-common] Copying folder ${folderToCopy} to ${destination}`);
-  ncp(source, destination, function (err) {
+  return ncp(source, destination, function (err) {
     if (err) {
       serverless.cli.log(`[serverless-package-common] Error Copying. ${err}`);
       return console.error(err);
