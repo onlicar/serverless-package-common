@@ -50,7 +50,7 @@ const createFolder = (folder, serverless) => {
 
 const copyFolder = (serverless) => {
 
-  return targetFuncs()
+  return targetFuncs(serverless)
   .map(f => {
     if (!get(f, 'module')) {
       set(f, ['module'], '.');
@@ -79,8 +79,8 @@ const removeFolder = folder => {
   rimraf.sync(folderToRemove);
 };
 
-const targetFuncs = () => {
-  let inputOpt = this.serverless.processedInput.options;
+const targetFuncs = (serverless) => {
+  let inputOpt = serverless.processedInput.options;
   return inputOpt.function
     ? [inputOpt.functionObj]
     : values(this.serverless.service.functions);
