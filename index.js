@@ -30,17 +30,17 @@ class PackageCommon {
         this.serverless.cli.log(`[serverless-package-common] Package Common is complete`);
       });
   }
-
+  
   copyCommon() {
     //copy common-core
     this.serverless.cli.log(`copying....`);
     return Promise.all(this.options.common.map(commonFolder => {
-      this.symlinked = true;
-      return symlink.copyFolder(this.serverless);
-    }))
-    .then(() => {
-      this.serverless.cli.log(`[serverless-package-common] Package Common is complete`);
-    });
+        this.symlinked = true;
+        return symlink.copyFolder(this.serverless);
+      }))
+      .then(() => {
+        this.serverless.cli.log(`[serverless-package-common] Package Common is complete`);
+      });
   }
 
   afterDeploy() {
