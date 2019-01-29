@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const rimraf = require('rimraf');
 const yesno = require('yesno');
-const ncp = require('ncp').ncp;
 const fse = require('fs-extra')
 
 const exists = path => {
