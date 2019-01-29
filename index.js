@@ -33,7 +33,7 @@ class PackageCommon {
   afterDeploy() {
     if(this.symlinked) {
       this.options.common.forEach(commonFolder => {
-        const target = commonFolder.replace(/..\//g, '');
+        const target = commonFolder; //commonFolder.replace(/..\//g, '');
         symlink.removeFolder(target);
       });
     }

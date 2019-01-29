@@ -35,8 +35,8 @@ const askToOverwrite = (targetExists, folder) => {
 
 // Symlink a folder
 const createFolder = (folder, serverless) => {
-  const target = path.join(process.cwd(), folder.replace(/..\//g, ''));
-
+  //const target = path.join(process.cwd(), folder.replace(/..\//g, ''));
+  const target = path.join(process.cwd(), folder);
   // Check if folder/file with symlink name already exists in top level
   return askToOverwrite(exists(target) ? [target] : [], folder)
     .then(() => {
@@ -48,7 +48,8 @@ const createFolder = (folder, serverless) => {
 };
 
 const removeFolder = folder => {
-  const folderToRemove = path.join(process.cwd(), folder)
+  const folderToRemove = path.join(process.cwd(), folder);
+  serverless.cli.log(`[serverless-package-common] Un-Symlinking folder ${folderToRemove}`);
   rimraf.sync(folderToRemove);
 };
 
