@@ -61,12 +61,24 @@ const copyFolder = (serverless) => {
     serverless.cli.log(
       `Copying common modules for ${f.module}...`
     );
+
+    const destSrcDir = path.join(serverless.config.servicePath, f.module, 'src');
+    const destCommonDir = path.join(destSrcDir, 'common')
+
     const folderToCopy = path.join(serverless.config.servicePath, 'src', 'common');
-    const destination = path.join(serverless.config.servicePath, f.module, 'src');
+
     try {
-      serverless.cli.log(`Copying from ${folderToCopy} to ${destination}`);
-      fse.createFolder
-      fse.copySync(folderToCopy, destination)
+      serverless.cli.log(`Copying from ${folderToCopy} to ${destCommonDir}`);
+      
+      if (!fs.existsSync(destSrcDir)){
+        fs.mkdirSync(destSrcDir);
+      }
+
+      if (!fs.existsSync(destCommonDir)){
+        fs.mkdirSync(destCommonDir);
+      }
+
+      fse.copySync(folderToCopy, destCommonDir)
       serverless.cli.log(`[serverless-package-common] Copy finished`);
       return true;
     } catch (err) {
