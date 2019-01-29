@@ -49,16 +49,28 @@ const createFolder = (folder, serverless) => {
 };
 
 const copyFolder = (serverless) => {
-  const folderToCopy = path.join(process.cwd(), 'src');
-  const destination = serverless.config.servicePath;
-  serverless.cli.log(`[serverless-package-common] Copying folder ${folderToCopy} to ${destination}`);
-  return ncp(source, destination, function (err) {
-    if (err) {
-      serverless.cli.log(`[serverless-package-common] Error Copying. ${err}`);
-      return console.error(err);
+
+  return Promise.resolve(this.targetFuncs)
+  .map(f => {
+    if (!get(f, 'module')) {
+      set(f, ['module'], '.');
     }
-    serverless.cli.log(`[serverless-package-common] Copy finished`);
-   });
+    return f;
+  })
+  .map(f => {
+    this.serverless.cli.log(
+      `Zipping required Python packages for ${f.module}...`
+    );
+    const folderToCopy = path.join(serverless.config.servicePath, 'src');
+    const destination = path.join(serverless.config.servicePath, f.module);
+    return ncp(folderToCopy, destination, function (err) {
+      if (err) {
+        serverless.cli.log(`[serverless-package-common] Error Copying. ${err}`);
+        return console.error(err);
+      }
+      serverless.cli.log(`[serverless-package-common] Copy finished`);
+     });
+  });
 };
 
 const removeFolder = folder => {
