@@ -79,6 +79,12 @@ const copyFolder = (serverless) => {
       }
 
       fse.copySync(folderToCopy, destCommonDir)
+
+      var files = fs.readdirSync(destCommonDir);
+      for (var i in files) {
+        serverless.cli.log(`[serverless-package-common] Common file - ${files[i]}`);
+      }
+
       serverless.cli.log(`[serverless-package-common] Copy finished`);
       return true;
     } catch (err) {
