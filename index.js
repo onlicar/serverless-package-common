@@ -13,7 +13,7 @@ class PackageCommon {
 
     this.hooks = {
       'before:package:createDeploymentArtifacts': this.beforeDeploy.bind(this),
-      'before:deploy:function:packageFunction': this.copyCommon.bind(this),
+      //'before:deploy:function:packageFunction': this.copyCommon.bind(this),
       'after:deploy:deploy': this.afterDeploy.bind(this)
     };
 
@@ -30,7 +30,7 @@ class PackageCommon {
         this.serverless.cli.log(`[serverless-package-common] Package Common is complete`);
       });
   }
-  
+
   copyCommon() {
     //copy common-core
     this.serverless.cli.log(`copying....`);
