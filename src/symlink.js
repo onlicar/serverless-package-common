@@ -58,7 +58,7 @@ const copyFolder = (serverless) => {
     return f;
   }) */
   .map(f => {
-    this.serverless.cli.log(
+    serverless.cli.log(
       `Zipping required Python packages for ${f.module}...`
     );
     const folderToCopy = path.join(serverless.config.servicePath, 'src');
