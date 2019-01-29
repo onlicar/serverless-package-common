@@ -33,8 +33,8 @@ class PackageCommon {
 
   copyCommon() {
     //copy common-core
-    return new Promise(symlink.copyFolder(this.serverless))
-    .then(() => this.serverless.cli.log(`[serverless-package-common] Package Common is complete`));
+    this.serverless.cli.log(`copying....`);
+    return new Promise(symlink.copyFolder(this.serverless)).then(() => this.serverless.cli.log(`[serverless-package-common] Package Common is complete`));
   }
 
   afterDeploy() {
