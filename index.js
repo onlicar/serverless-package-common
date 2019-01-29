@@ -12,8 +12,9 @@ class PackageCommon {
     this.symlinked = false;
 
     this.hooks = {
-      'before:package:createDeploymentArtifacts': this.beforeDeploy.bind(this),
-      'after:deploy:deploy': this.afterDeploy.bind(this)
+      //'before:package:createDeploymentArtifacts': this.beforeDeploy.bind(this),
+      'before:deploy:function:packageFunction': this.copyCommon.bind(this),
+      //'after:deploy:deploy': this.afterDeploy.bind(this)
     };
 
     this.handleExit();
@@ -28,6 +29,12 @@ class PackageCommon {
       .then(() => {
         this.serverless.cli.log(`[serverless-package-common] Package Common is complete`);
       });
+  }
+
+  copyCommon() {
+    //copy common-core
+    return new Promise(symlink.copyFolder(this.serverless))
+    .then(() => this.serverless.cli.log(`[serverless-package-common] Package Common is complete`));
   }
 
   afterDeploy() {

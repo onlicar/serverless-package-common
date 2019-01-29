@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const rimraf = require('rimraf');
 const yesno = require('yesno');
+const ncp = require('ncp').ncp;
 
 const exists = path => {
   try {
@@ -47,10 +48,23 @@ const createFolder = (folder, serverless) => {
     });
 };
 
+const copyFolder = (serverless) => {
+  const folderToCopy = path.join(process.cwd(), 'src');
+  const destination = serverless.config.servicePath;
+  serverless.cli.log(`[serverless-package-common] Copying folder ${folderToCopy} to ${destination}`);
+  ncp(source, destination, function (err) {
+    if (err) {
+      serverless.cli.log(`[serverless-package-common] Error Copying. ${err}`);
+      return console.error(err);
+    }
+    serverless.cli.log(`[serverless-package-common] Copy finished`);
+   });
+}
+
 const removeFolder = folder => {
   const folderToRemove = path.join(process.cwd(), folder);
   serverless.cli.log(`[serverless-package-common] Un-Symlinking folder ${folderToRemove}`);
   rimraf.sync(folderToRemove);
 };
 
-module.exports = { createFolder, removeFolder };
+module.exports = { createFolder, removeFolder, copyFolder };
