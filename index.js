@@ -7,7 +7,7 @@ class PackageCopyCommon {
     this.serverless = serverless;
     this.options = Object.assign({
       sources: [],
-      destination: ""
+      destination: ''
     }, this.serverless.service.custom && this.serverless.service.custom.packageCopyCommon || {});
 
     this.hooks = {
