@@ -62,7 +62,7 @@ const copyFolder = (serverless) => {
       `Copying common modules for ${f.module}...`
     );
 
-    const destDir = path.join(serverless.config.servicePath, f.module, 'core', 'src', 'common');
+    const destDir = path.join(serverless.config.servicePath, f.module, 'src', 'common');
     //const destCommonDir = path.join(destSrcDir, 'common')
 
     const folderToCopy = path.join(serverless.config.servicePath, 'src', 'common');
@@ -73,11 +73,7 @@ const copyFolder = (serverless) => {
       if (!fs.existsSync(destDir)){
         fs.mkdirSync(destDir, { recursive: true });
       }
-
-/*       if (!fs.existsSync(destCommonDir)){
-        fs.mkdirSync(destCommonDir);
-      } */
-
+      
       fse.copySync(folderToCopy, destDir)
 
       var files = fs.readdirSync(destDir);
