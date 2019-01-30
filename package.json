@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/akkapur/serverless-package-common.git"
+    "url": "git+https://github.com/akkapur/serverless-package-common.git#custom"
   },
   "author": "Dan Bovey <dan@onlicar.com>",
   "license": "MIT",
