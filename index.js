@@ -17,7 +17,7 @@ class PackageCopyCommon {
   }
 
   copyCommon() {
-    return Promise.all(this.options.common.map(commonFolder => {
+    return Promise.all(this.options.sources.map(commonFolder => {
         this.symlinked = true;
         return symlink.copyFolder(this.serverless, commonFolder, this.options.destination);
       }))
