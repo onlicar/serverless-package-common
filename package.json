@@ -1,5 +1,5 @@
 {
-  "name": "serverless-package-common",
+  "name": "serverless-package-copy-common",
   "version": "1.0.3",
   "description": "📦 Deploy microservice Python Serverless services with common code",
   "main": "index.js",
@@ -8,17 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/onlicar/serverless-package-common.git"
+    "url": "git+https://github.com/akkapur/serverless-package-common.git"
   },
   "author": "Dan Bovey <dan@onlicar.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/onlicar/serverless-package-common/issues"
+    "url": "https://github.com/akkapur/serverless-package-common/issues"
   },
-  "homepage": "https://github.com/onlicar/serverless-package-common#readme",
+  "homepage": "https://github.com/akkapur/serverless-package-common#readme",
   "dependencies": {
-    "fs-extra": "^7.0.1",
-    "rimraf": "^2.6.2",
-    "yesno": "0.0.1"
+    "fs-extra": "^7.0.1"
   }
 }

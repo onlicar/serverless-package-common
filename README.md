@@ -1,13 +1,13 @@
-# serverless-package-common
+# serverless-package-copy-common
 
 > 📦 Deploy microservice Python Serverless services with common code
 
-Before deploying, this plugin symlinks folders containing shared code into the root directory of your Serverless microservice.
+Before deploying, this plugin copies folders containing shared code into a directory of your choice in the Serverless microservice.
 
 ### Installation
 
 ```
-npm i serverless-package-common --save-dev
+npm install https://github.com/akkapur/serverless-package-common.git
 ```
 
 ### Usage
@@ -16,15 +16,17 @@ npm i serverless-package-common --save-dev
 service: your-service
 
 plugins:
-  - serverless-package-common
+  - serverless-package-copy-common
 
 functions:
   # Your functions here
 
 custom:
-  packageCommon:
-    common:
+  packageCopyCommon:
+    sources:
       - '../common'
+    destination:
+      - ''
 ```
 
 #### Example Directory Structure
