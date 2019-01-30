@@ -2,7 +2,7 @@
 
 > 📦 Deploy microservice Python Serverless services with common code
 
-Before deploying, this plugin copies folders containing shared code into a directory of your choice in the Serverless microservice.
+Before deploying, this plugin copies contents of folders containing shared code into a directory of your choice in the Serverless microservice.
 
 ### Installation
 
@@ -25,8 +25,7 @@ custom:
   packageCopyCommon:
     sources:
       - '../common'
-    destination:
-      - ''
+    destination: 'my-service'
 ```
 
 #### Example Directory Structure

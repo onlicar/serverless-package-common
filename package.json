@@ -1,7 +1,7 @@
 {
   "name": "serverless-package-copy-common",
   "version": "1.0.3",
-  "description": "📦 Deploy microservice Python Serverless services with common code",
+  "description": "📦 Deploy microservice with common code",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
