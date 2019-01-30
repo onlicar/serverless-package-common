@@ -10,7 +10,9 @@ const copyFolder = (serverless, commonFolder, destinationFolder) => {
     //const folderToCopy = path.join(serverless.config.servicePath, 'src', 'common');
 
     const destDir = path.join(serverless.config.servicePath, f.module, destinationFolder);
+    serverless.cli.log(`[serverless-package-copy-common] destDir. ${destDir}`);
     const folderToCopy = path.join(serverless.config.servicePath, commonFolder);
+    serverless.cli.log(`[serverless-package-copy-common] folderToCopy. ${folderToCopy}`);
 
     try {
       serverless.cli.log(`[serverless-package-copy-common] Copying from ${folderToCopy} to ${destDir}`);
