@@ -3,7 +3,7 @@ const path = require('path');
 const fse = require('fs-extra')
 
 const copyFolder = (serverless, commonFolder, destinationFolder) => {
-
+  serverless.cli.log(`[serverless-package-copy-common] Copy folder called.`);
   return targetFuncs(serverless)
   .map(f => {
     //const destDir = path.join(serverless.config.servicePath, f.module, 'src', 'common');

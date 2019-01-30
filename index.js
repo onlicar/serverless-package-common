@@ -7,7 +7,7 @@ class PackageCopyCommon {
     this.serverless = serverless;
     this.options = Object.assign({
       sources: [],
-      destination: ''
+      destination: ""
     }, this.serverless.service.custom && this.serverless.service.custom.packageCopyCommon || {});
 
     this.hooks = {
@@ -18,7 +18,6 @@ class PackageCopyCommon {
 
   copyCommon() {
     return Promise.all(this.options.sources.map(commonFolder => {
-        this.symlinked = true;
         return symlink.copyFolder(this.serverless, commonFolder, this.options.destination);
       }))
       .then(() => {
