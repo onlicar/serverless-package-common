@@ -17,8 +17,10 @@ class PackageCopyCommon {
   }
 
   copyCommon() {
+    const destination = this.options.destination;
     return Promise.all(this.options.sources.map(commonFolder => {
-        return symlink.copyFolder(this.serverless, commonFolder, this.options.destination);
+        serverless.cli.log(`[serverless-package-copy-common] start copying ${commonFolder}`);
+        return symlink.copyFolder(this.serverless, commonFolder, destination);
       }))
       .then(() => {
         this.serverless.cli.log(`[serverless-package-copy-common] Package Copy Common is complete`);
