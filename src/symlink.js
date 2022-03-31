@@ -36,7 +36,7 @@ const askToOverwrite = (targetExists, folder) => {
 
 // Build symlink path
 const symlinkTarget = folder => {
-  return path.join(process.cwd(), folder.replace(/.*\//, ''));
+  return path.join(process.cwd(), path.basename(folder));
 };
 
 // Symlink a folder
