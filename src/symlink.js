@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const rimraf = require('rimraf');
 const yesno = require('yesno');
+const { log } = require('@serverless/utils/log');
 
 const exists = path => {
   try {
@@ -33,22 +34,30 @@ const askToOverwrite = (targetExists, folder) => {
   return ask;
 };
 
+// Build symlink path
+const symlinkTarget = folder => {
+  return path.join(process.cwd(), folder.replace(/.*\//, ''));
+};
+
 // Symlink a folder
-const createFolder = (folder, serverless) => {
-  const target = path.join(process.cwd(), folder.replace(/..\//g, ''));
+const createFolder = folder => {
+  const target = symlinkTarget(folder);
 
   // Check if folder/file with symlink name already exists in top level
   return askToOverwrite(exists(target) ? [target] : [], folder)
     .then(() => {
       // There is either no conflict or the user has accepted overwriting
-      serverless.cli.log(`[serverless-package-common] Symlinking ${folder}`);
+      log.verbose(`Symlinking ${folder} to target ${target}`);
       rimraf.sync(target);
       fs.symlinkSync(folder, target);
     });
 };
 
 const removeFolder = folder => {
-  rimraf.sync(path.join(process.cwd(), folder));
+  const target = symlinkTarget(folder);
+  log.verbose(`Removing symlink ${target}`);
+
+  rimraf.sync(target);
 };
 
 module.exports = { createFolder, removeFolder };
